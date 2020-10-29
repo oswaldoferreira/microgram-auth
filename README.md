@@ -21,6 +21,9 @@ Run locally:
 ```
 docker build -t microgram-auth .
 docker run -p 5000:5000 microgram-auth:latest
+
+› curl localhost:5000
+/api/v0/%
 ```
 
 ### Kubernetes example
