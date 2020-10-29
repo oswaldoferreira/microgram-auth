@@ -85,3 +85,14 @@ spec:
       port: 80
       targetPort: web
 ```
+
+Apply both to the Kubernetes cluster:
+
+```
+kubectl apply -f deployment.yml
+kubectl apply -f load_balancer.yml
+
+› kubectl get pods
+NAME                              READY   STATUS    RESTARTS   AGE
+microgram-auth-84689bbdb9-6jfzm   1/1     Running   0          14h
+```
