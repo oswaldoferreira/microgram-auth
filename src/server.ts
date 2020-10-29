@@ -20,7 +20,7 @@ import {V0_USER_MODELS} from './controllers/v0/model.index';
 
   app.use(cors({
     methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-    origin: "http://a12e954cc71d24037bc1361adb33a804-1927388553.sa-east-1.elb.amazonaws.com",
+    origin: config.cors_origin
   }));
 
   app.use('/api/v0/', IndexRouter);
@@ -32,7 +32,7 @@ import {V0_USER_MODELS} from './controllers/v0/model.index';
 
   // Start the Server
   app.listen( port, () => {
-    console.log( `server running ${config.url}` );
+    console.log( `server running at ${port} port` );
     console.log( `press CTRL+C to stop server` );
   } );
 })();
