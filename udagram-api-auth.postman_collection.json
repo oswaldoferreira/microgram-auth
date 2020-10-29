@@ -1,0 +1,317 @@
+{
+	"info": {
+		"_postman_id": "e60af6c4-7fc8-4c3a-bf9d-8048038e98d2",
+		"name": "udagram-api-auth",
+		"description": "Feed and User API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Public",
+			"item": [
+				{
+					"name": "/api/v0/user/auth valid registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b7c5b0ee-6013-42ef-a484-9c3dbf2aa96e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"A single item is returned\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.not.eql(null);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"hello@gmail.com\",\n\t\"password\":\"fancypass\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/users/auth",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"users",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/user/auth invalid registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "196b4ffa-b793-4fa7-ad7f-8698987727b0",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"auth is false and a message is included in the error body\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.not.eql(null);",
+									"    pm.expect(jsonData.message).to.not.eql(null)",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"fancypass\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/users/auth",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"users",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/user/auth/login valid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fb7f99a6-061b-4ea2-9bc9-8f3670377dea",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"body includes an email and token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.auth).to.eql(true);",
+									"    pm.expect(jsonData.user).to.not.eql(null);",
+									"    pm.expect(jsonData.token).to.not.eql(null)",
+									"    ",
+									"    pm.environment.set(\"token\", jsonData.token);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"hello@gmail.com\",\n\t\"password\":\"fancypass\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/users/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"users",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/user/auth/login invalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4465807d-1590-4e99-86bd-45a2b39b25eb",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"auth is false and a message is included in the error body\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.not.eql(null);",
+									"    pm.expect(jsonData.message).to.not.eql(null)",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/users/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"users",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Unauthorized",
+			"item": [],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Authorized",
+			"item": [],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "094b7b7e-c4e8-471d-9708-1e116e720c4f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "12a9c5a8-5de9-4ce5-86f2-84218d6d89df",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c20c08e5-4802-4ecd-8d97-d5147f6a1b47",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "76d8e298-0b75-4d23-a6c8-fa340fbe379b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "2879acee-38db-475b-aa4e-70a2cb208000",
+			"key": "token",
+			"value": ""
+		},
+		{
+			"id": "b50d211a-05bb-469b-8e76-a9fbf4dfcfbc",
+			"key": "host",
+			"value": "http://localhost:5000"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
